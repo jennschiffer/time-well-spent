@@ -1,5 +1,6 @@
 (function(){
   const frame = document.getElementById('frame');
+  const cloudZero = document.getElementById('cloud-zero');
 
   /* helper functions */
   const getUniqueRandomNumberArray = function(min, max, length) {
@@ -27,12 +28,20 @@
     ')';
   };
 
+  const addCloud = function() {
+    const cloud = cloudZero.cloneNode(true);
+    cloud.style.opacity = Math.random(0, 1);
+    cloud.style.top = getUniqueRandomNumberArray(0, frame.clientHeight, 1)[0] + 'px';
+    frame.appendChild(cloud);
+  }
+
   /* init drawing */
   setGradient(frame);
 
   /* intervals */
   var backdropInterval = window.setInterval(function(){
     setGradient(frame);
+    addCloud();
   }, 5000);
 
 })();

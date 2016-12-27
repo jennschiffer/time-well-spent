@@ -7,4 +7,23 @@ html, body {
 #frame {
   width: 100%;
   height: 100vh;
+  min-width: 1080px;
+  min-height: 1920px;
+  overflow: hidden;
 }
+
+@keyframes moveclouds {
+	0% {margin-left: 1280px;}
+	100% {margin-left: -200px;}
+}
+
+.cloud { position: absolute; opacity: .7;
+  -webkit-animation: moveclouds 20s linear infinite;
+  -moz-animation:  moveclouds 20s linear infinite;
+  animation: moveclouds 20s linear infinite;
+}
+
+.fluff { position: absolute; width: 50px; height:50px; background: #fff; border-radius: 50px; }
+.fluff:first-child { left: 30px; top: 0px; }
+.fluff:nth-child(2) { width: 100px; left: -10px; top: 15px; }
+.fluff:nth-child(3) { width:60px; height: 60px; left: 15px; top: 10px; }
