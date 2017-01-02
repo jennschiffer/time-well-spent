@@ -1,6 +1,6 @@
 (function(){
   const frame = document.getElementById('frame');
-  const cloudZero = document.getElementById('cloud-zero');
+  const cloudZero = document.getElementsByClassName('cloud')[0];
 
   /* helper functions */
   const getUniqueRandomNumberArray = function(min, max, length) {
@@ -37,11 +37,15 @@
 
   /* init drawing */
   setGradient(frame);
+  addCloud();
 
   /* intervals */
-  var backdropInterval = window.setInterval(function(){
+  var backdropInterval = window.setInterval(function() {
     setGradient(frame);
+  }, 10000);
+
+  var cloudInterval = window.setInterval(function() {
     addCloud();
-  }, 5000);
+  }, 23000);
 
 })();
