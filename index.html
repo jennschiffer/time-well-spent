@@ -33,11 +33,65 @@
   jennmoney.biz -->
 
   <div id="frame">
-    <img class="cloud" src="assets/cloud.gif" />
-
-    <img id="desk" src="assets/desk.png" />
+    <img class="cloud" src="assets/cloud.png" />
+    <iframe width="700" height="395" src="https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0" frameborder="0" allowfullscreen></iframe>
+    <img id="me" src="assets/me.png" />
   </div>
 
-  <script type="text/javascript" src="time-well-spent.js"></script>
+  <script type="text/javascript">
+  var frame = document.getElementById('frame');
+  var cloudZero = document.getElementsByClassName('cloud')[0];
+
+  /* helper functions */
+  var getUniqueRandomNumberArray = function(min, max, length) {
+    var arr = [];
+    for (var i = 0; i < length; i++) {
+      var numberChosen = false;
+      do {
+        var randNum = Math.floor(Math.random() * (max - min) + min);
+        if (arr.indexOf(randNum) === -1) {
+          arr.push(randNum);
+          numberChosen = true;
+        }
+      }
+      while ( numberChosen === false )
+    }
+    return arr;
+  }
+
+  var getRandomArrayItem = function(array) {
+    var i = Math.floor(array.length * Math.random());
+    return array[i];
+  };
+
+  var setGradient = function(elem) {
+  var randNumArray = getUniqueRandomNumberArray(0, 256, 6);
+  elem.style.background = '-webkit-linear-gradient( 0deg, ' +
+    'rgb(' + randNumArray[0] + ', ' + randNumArray[1] + ', ' + randNumArray[2] + ')' +
+    ', ' +
+    'rgb(' + randNumArray[3] + ', ' + randNumArray[4] + ', ' + randNumArray[5] + ')' +
+    ')';
+  };
+
+  var addCloud = function() {
+    var cloud = cloudZero.cloneNode(true);
+    cloud.style.opacity = Math.random(0, 1);
+    cloud.style.top = getUniqueRandomNumberArray(0, frame.clientHeight, 1)[0] + 'px';
+    frame.appendChild(cloud);
+  }
+
+  /* init drawing */
+  setGradient(frame);
+  addCloud();
+
+  /* intervals */
+  var backdropInterval = window.setInterval(function() {
+    setGradient(frame);
+  }, 10000);
+
+  var cloudInterval = window.setInterval(function() {
+    addCloud();
+  }, 23000);
+  </script>
 </body>
 </html>

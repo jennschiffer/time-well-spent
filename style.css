@@ -12,18 +12,27 @@ html, body {
   overflow: hidden;
 }
 
-#desk {
-  z-index: 1;
+#me {
+  z-index: 2;
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
-  opacity: .8;
+}
+
+iframe {
+  position: absolute;
+  right: 100px;
+  top: 100px;
+}
+
+@-webkit-keyframes moveclouds {
+	0% {margin-left: 1280px;}
+	100% {margin-left: -200px;}
 }
 
 .cloud {
-  z-index: 0;
+  z-index: 1;
   position: absolute;
   left: 0;
-  opacity: .7;
+  -webkit-animation: moveclouds 20s linear infinite;
 }
