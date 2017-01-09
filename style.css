@@ -10,6 +10,7 @@ html, body {
   height: 1920px;
   min-width: 1080px;
   overflow: hidden;
+  text-align: right;
 }
 
 #me {
@@ -20,9 +21,7 @@ html, body {
 }
 
 iframe {
-  position: absolute;
-  right: 100px;
-  top: 100px;
+  margin: 2% 10% 2% auto;
 }
 
 @-webkit-keyframes moveclouds {
