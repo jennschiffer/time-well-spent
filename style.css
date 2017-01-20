@@ -21,7 +21,8 @@ html, body {
 }
 
 iframe {
-  margin: 2% 10% 2% auto;
+  position: absolute;
+  z-index: 1;
 }
 
 @-webkit-keyframes moveclouds {

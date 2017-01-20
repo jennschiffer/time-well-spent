@@ -34,22 +34,24 @@
 
   <div id="frame">
     <img id="me" src="assets/me.png" />
-    <iframe width="60%" height="25%" frameborder="0" allowfullscreen></iframe>
-    <iframe width="60%" height="25%" frameborder="0" allowfullscreen></iframe>
-    <iframe width="60%" height="25%" frameborder="0" allowfullscreen></iframe>
+    <iframe id="karaoke" width="900" height="600" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <script type="text/javascript">
   var frame = document.getElementById('frame');
-  var videos = document.getElementsByTagName('iframe');
+  var karaoke = document.getElementById('karaoke');
 
   /* helper functions */
+  var getRandomNumber = function(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+
   var getUniqueRandomNumberArray = function(min, max, length) {
     var arr = [];
     for (var i = 0; i < length; i++) {
       var numberChosen = false;
       do {
-        var randNum = Math.floor(Math.random() * (max - min) + min);
+        var randNum = getRandomNumber(min, max);
         if (arr.indexOf(randNum) === -1) {
           arr.push(randNum);
           numberChosen = true;
@@ -58,36 +60,45 @@
       while ( numberChosen === false )
     }
     return arr;
-  }
-
-  var getRandomArrayItem = function(array) {
-    var i = Math.floor(array.length * Math.random());
-    return array[i];
   };
 
   var setGradient = function(elem) {
-  var randNumArray = getUniqueRandomNumberArray(0, 256, 6);
-  elem.style.background = '-webkit-linear-gradient( 0deg, ' +
-    'rgb(' + randNumArray[0] + ', ' + randNumArray[1] + ', ' + randNumArray[2] + ')' +
-    ', ' +
-    'rgb(' + randNumArray[3] + ', ' + randNumArray[4] + ', ' + randNumArray[5] + ')' +
-    ')';
+    var randNumArray = getUniqueRandomNumberArray(0, 256, 6);
+    elem.style.background = '-webkit-linear-gradient( 0deg, ' +
+      'rgb(' + randNumArray[0] + ', ' + randNumArray[1] + ', ' + randNumArray[2] + ')' +
+      ', ' +
+      'rgb(' + randNumArray[3] + ', ' + randNumArray[4] + ', ' + randNumArray[5] + ')' +
+      ')';
   };
+
+  var startNewKaraoke = function() {
+    const video = karaoke.cloneNode(true);
+    const videoIndex = getRandomNumber(0, 20);
+    video.style.top = getRandomNumber(-600, frame.clientHeight) + 'px';
+    video.style.left = getRandomNumber(-900, frame.clientWidth) + 'px';
+    video.setAttribute('src', 'https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0&index=' + videoIndex);
+    frame.appendChild(video);
+  }
+
+  var endAKaraoke = function() {
+    const karaokes = document.getElementsByTagName('iframe');
+    const randomKaraoke = getRandomNumber(0, karaokes.length - 1);
+    frame.removeChild(karaokes[randomKaraoke]);
+  }
 
   /* init drawing */
   setGradient(frame);
 
-  /* set video sources */
-  var playlistIndices = getUniqueRandomNumberArray(0, 20, 3);
-  for (var i = 0; i < videos.length; i++) {
-    console.log('wow')
-    videos[i].setAttribute('src', 'https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0&index=' + playlistIndices[i]);
-  }
-
   /* intervals */
   var backdropInterval = window.setInterval(function() {
     setGradient(frame);
-  }, 10000);
+    startNewKaraoke();
+
+    const rollDice = getRandomNumber(0, 5);
+    if ( !rollDice ) {
+      endAKaraoke();
+    }
+  }, 6000);
 
   </script>
 </body>
