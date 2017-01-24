@@ -33,8 +33,8 @@
   jennmoney.biz -->
 
   <div id="frame">
-    <img id="me" src="assets/me.png" />
-    <iframe id="karaoke" width="900" height="600" frameborder="0" allowfullscreen></iframe>
+    <img id="me" src="assets/selfie.png" />
+    <iframe id="karaoke" width="450" height="300" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <script type="text/javascript">
@@ -74,8 +74,8 @@
   var startNewKaraoke = function() {
     const video = karaoke.cloneNode(true);
     const videoIndex = getRandomNumber(0, 20);
-    video.style.top = getRandomNumber(-600, frame.clientHeight) + 'px';
-    video.style.left = getRandomNumber(-900, frame.clientWidth) + 'px';
+    video.style.top = getRandomNumber(0, frame.clientHeight) + 'px';
+    video.style.left = getRandomNumber(0, frame.clientWidth) + 'px';
     video.setAttribute('src', 'https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0&index=' + videoIndex);
     frame.appendChild(video);
   }
@@ -94,11 +94,11 @@
     setGradient(frame);
     startNewKaraoke();
 
-    const rollDice = getRandomNumber(0, 5);
+    const rollDice = getRandomNumber(0, 11);
     if ( !rollDice ) {
       endAKaraoke();
     }
-  }, 6000);
+  }, 30000);
 
   </script>
 </body>
