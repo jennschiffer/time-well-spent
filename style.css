@@ -21,18 +21,6 @@ html, body {
 }
 
 iframe {
-  position: absolute;
+  margin: 50px 50px 0;
   z-index: 1;
-}
-
-@-webkit-keyframes moveclouds {
-	0% {margin-left: 1280px;}
-	100% {margin-left: -200px;}
-}
-
-.cloud {
-  z-index: 1;
-  position: absolute;
-  left: 0;
-  -webkit-animation: moveclouds 20s linear infinite;
 }

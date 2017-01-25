@@ -33,13 +33,15 @@
   jennmoney.biz -->
 
   <div id="frame">
-    <img id="me" src="assets/selfie.png" />
-    <iframe id="karaoke" width="450" height="300" frameborder="0" allowfullscreen></iframe>
+    <img id="me" src="assets/glitch.gif" />
+    <iframe class="karaoke" width="980" height="565" frameborder="0"></iframe>
+    <iframe class="karaoke" width="980" height="565" frameborder="0"></iframe>
+    <iframe class="karaoke" width="980" height="565" frameborder="0"></iframe>
   </div>
 
   <script type="text/javascript">
   var frame = document.getElementById('frame');
-  var karaoke = document.getElementById('karaoke');
+  var karaokeVideos = document.getElementsByTagName('iframe');
 
   /* helper functions */
   var getRandomNumber = function(min, max) {
@@ -63,42 +65,28 @@
   };
 
   var setGradient = function(elem) {
-    var randNumArray = getUniqueRandomNumberArray(0, 256, 6);
+    var randNumArray = getUniqueRandomNumberArray(0, 256, 12);
     elem.style.background = '-webkit-linear-gradient( 0deg, ' +
       'rgb(' + randNumArray[0] + ', ' + randNumArray[1] + ', ' + randNumArray[2] + ')' +
       ', ' +
       'rgb(' + randNumArray[3] + ', ' + randNumArray[4] + ', ' + randNumArray[5] + ')' +
+      ', ' +
+      'rgb(' + randNumArray[6] + ', ' + randNumArray[7] + ', ' + randNumArray[8] + ')' +
+      ', ' +
+      'rgb(' + randNumArray[9] + ', ' + randNumArray[10] + ', ' + randNumArray[11] + ')' +
       ')';
   };
 
   var startNewKaraoke = function() {
-    const video = karaoke.cloneNode(true);
-    const videoIndex = getRandomNumber(0, 20);
-    video.style.top = getRandomNumber(0, frame.clientHeight) + 'px';
-    video.style.left = getRandomNumber(0, frame.clientWidth) + 'px';
-    video.setAttribute('src', 'https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0&index=' + videoIndex);
-    frame.appendChild(video);
-  }
-
-  var endAKaraoke = function() {
-    const karaokes = document.getElementsByTagName('iframe');
-    const randomKaraoke = getRandomNumber(0, karaokes.length - 1);
-    frame.removeChild(karaokes[randomKaraoke]);
+    const videoIndex = getUniqueRandomNumberArray(0, 20, 3);
+    for (var i = 0; i < karaokeVideos.length; i++) {
+      karaokeVideos[i].setAttribute('src', 'https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0&index=' + videoIndex[i]);
+    }
   }
 
   /* init drawing */
   setGradient(frame);
-
-  /* intervals */
-  var backdropInterval = window.setInterval(function() {
-    setGradient(frame);
-    startNewKaraoke();
-
-    const rollDice = getRandomNumber(0, 11);
-    if ( !rollDice ) {
-      endAKaraoke();
-    }
-  }, 30000);
+  startNewKaraoke();
 
   </script>
 </body>
