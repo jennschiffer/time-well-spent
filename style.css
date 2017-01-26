@@ -10,7 +10,6 @@ html, body {
   height: 1920px;
   min-width: 1080px;
   overflow: hidden;
-  text-align: right;
 }
 
 #me {
@@ -18,6 +17,11 @@ html, body {
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+#important {
+  position: absolute;
+  left: 600px;
 }
 
 iframe {
