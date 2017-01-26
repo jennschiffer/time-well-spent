@@ -34,60 +34,80 @@
 
   <div id="frame">
     <img id="me" src="assets/glitch.gif" />
-    <iframe class="karaoke" width="980" height="565" frameborder="0"></iframe>
-    <iframe class="karaoke" width="980" height="565" frameborder="0"></iframe>
-    <iframe class="karaoke" width="980" height="565" frameborder="0"></iframe>
+    <div id="karaoke"></div>
   </div>
 
+  <script async src="https://www.youtube.com/iframe_api"></script>
   <script type="text/javascript">
-  var frame = document.getElementById('frame');
-  var karaokeVideos = document.getElementsByTagName('iframe');
-
-  /* helper functions */
-  var getRandomNumber = function(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
-  var getUniqueRandomNumberArray = function(min, max, length) {
-    var arr = [];
-    for (var i = 0; i < length; i++) {
-      var numberChosen = false;
-      do {
-        var randNum = getRandomNumber(min, max);
-        if (arr.indexOf(randNum) === -1) {
-          arr.push(randNum);
-          numberChosen = true;
+    function onYouTubeIframeAPIReady() {
+      var playerOptions = {
+        width: 980,
+        height: 765,
+        playerVars: {
+          autoplay: 1,
+          controls: 1,
+          showinfo: 0,
+          modestbranding: 1,
+          loop: 1,
+          fs: 0,
+          cc_load_policy: 1,
+          iv_load_policy: 3,
+          autohide: 1,
+          listType: 'playlist',
+          list: 'PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD',
+        },
+        events: {
+          onReady: function(e) {
+            e.target.mute();
+          }
         }
-      }
-      while ( numberChosen === false )
+      };
+
+      playerOptions.playerVars.index = Math.floor(Math.random() * 20);
+      var player1 = new YT.Player('karaoke', playerOptions);
     }
-    return arr;
-  };
+  </script>
+  <script type="text/javascript">
+    (function(){
+      var frame = document.getElementById('frame');
 
-  var setGradient = function(elem) {
-    var randNumArray = getUniqueRandomNumberArray(0, 256, 12);
-    elem.style.background = '-webkit-linear-gradient( 0deg, ' +
-      'rgb(' + randNumArray[0] + ', ' + randNumArray[1] + ', ' + randNumArray[2] + ')' +
-      ', ' +
-      'rgb(' + randNumArray[3] + ', ' + randNumArray[4] + ', ' + randNumArray[5] + ')' +
-      ', ' +
-      'rgb(' + randNumArray[6] + ', ' + randNumArray[7] + ', ' + randNumArray[8] + ')' +
-      ', ' +
-      'rgb(' + randNumArray[9] + ', ' + randNumArray[10] + ', ' + randNumArray[11] + ')' +
-      ')';
-  };
+      /* helper functions */
+      var getRandomNumber = function(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+      };
 
-  var startNewKaraoke = function() {
-    const videoIndex = getUniqueRandomNumberArray(0, 20, 3);
-    for (var i = 0; i < karaokeVideos.length; i++) {
-      karaokeVideos[i].setAttribute('src', 'https://www.youtube.com/embed/T_lJ0EoiEx4?list=PL0hmC7jyckDs1tAY7XmtaP5ijiewjfDxD&autoplay=1&loop=1&controls=0&index=' + videoIndex[i]);
-    }
-  }
+      var getUniqueRandomNumberArray = function(min, max, length) {
+        var arr = [];
+        for (var i = 0; i < length; i++) {
+          var numberChosen = false;
+          do {
+            var randNum = getRandomNumber(min, max);
+            if (arr.indexOf(randNum) === -1) {
+              arr.push(randNum);
+              numberChosen = true;
+            }
+          }
+          while ( numberChosen === false )
+        }
+        return arr;
+      };
 
-  /* init drawing */
-  setGradient(frame);
-  startNewKaraoke();
+      var setGradient = function(elem) {
+        var randNumArray = getUniqueRandomNumberArray(0, 256, 12);
+        elem.style.background = '-webkit-linear-gradient( 0deg, ' +
+          'rgb(' + randNumArray[0] + ', ' + randNumArray[1] + ', ' + randNumArray[2] + ')' +
+          ', ' +
+          'rgb(' + randNumArray[3] + ', ' + randNumArray[4] + ', ' + randNumArray[5] + ')' +
+          ', ' +
+          'rgb(' + randNumArray[6] + ', ' + randNumArray[7] + ', ' + randNumArray[8] + ')' +
+          ', ' +
+          'rgb(' + randNumArray[9] + ', ' + randNumArray[10] + ', ' + randNumArray[11] + ')' +
+          ')';
+      };
 
+      /* init drawing */
+      setGradient(frame);
+    })()
   </script>
 </body>
 </html>
